@@ -23,8 +23,8 @@ html {
 ```
 
 简单解析: 
-- 2倍视口宽度, iPhone 的 Retina 屏幕
-- 37.5 是 iPhone6 默认宽度375像素的1/10, 这是自己定义的, 主要用于计算 rem, 可以使用 mixin 方便计算出对应的 Rem .
+- 2倍 vw [视口宽度](http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/), iPhone 的 Retina 屏幕
+- 37.5 是 iPhone6 默认宽度375像素的1/10, 这是自己定义的, 主要用于计算 rem, 可以使用 [mixin](https://github.com/huanz/mixins/#rem) 方便计算出对应的 Rem .
 
 
 2. 媒体查询. 使用 scss 的一个循环, 匹配出市面上常见手机屏幕的尺寸, 并计算好 html 的字体大小. 再使用 rem 进行计算宽高等.
