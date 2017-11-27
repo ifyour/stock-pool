@@ -5,7 +5,7 @@
 - META 标签的设置
 - 移动端响应适配
 - 微信分享 SDK 相关配置
-- APP内调用第三方方法分享
+- APP内调用第三方方法
 
 ### META 标签的设置
 具体参考 `index.html` 内的代码.
@@ -23,7 +23,26 @@ html {
 ```
 
 简单解析: 
-- 2倍 vw [视口宽度](http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/), iPhone 的 Retina 屏幕
+- 2倍 vw [视口宽度](http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/)除以 37.5(iPhone6 即: 20px), 这个数字是自定义的, 使用 rem 的 mixin 可以自动计算出多少 rem, 看下面代码: 
+
+```scss
+@mixin rem($property, $values, $support-ie: false, $base: 40px){
+```
+
+`$base` 是我们的基准字体大小, 可以看到, 之前在自己定义 html 的 `fontsize` 的时候, 计算的结果是 `20px` 这是设置的以 iPhone6 作为尺寸参照, 那么这里为什么是 `40px` 呢? 没错 Retina 屏幕的原因. 实际尺寸是2倍.所以这个自动计算 `rem` 的 mixin 就帮我们完成了像素自动转成 rem 的工作, 直接按照设计稿上的写就行了, 经过编译后会转成对应的 rem.
+
+像这样用:
+
+```scss
+// common.scss
+@import "../../node_modules/mixins-sass/src/mixins";
+
+// 设置 margin-top, 60px 即设计稿上的实际尺寸, 会自动转成 60/40 = 1.5rem
+.box {
+    @include rem(margin-top, 60px);
+}
+```
+
 - 37.5 是 iPhone6 默认宽度375像素的1/10, 这是自己定义的, 主要用于计算 rem, 可以使用 [mixin](https://github.com/huanz/mixins/#rem) 方便计算出对应的 Rem .
 
 
