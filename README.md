@@ -18,12 +18,13 @@
 
 ```css
 html {
-    font-size: calc(2 * 100vw / 37.5) !important;
+    font-size: calc(100vw / 37.5 * 2) !important;
 }
 ```
 
 简单解析: 
-- 2倍 vw [视口宽度](http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/)除以 37.5(iPhone6 即: 20px), 这个数字是自定义的, 使用 rem 的 mixin 可以自动计算出多少 rem, 看下面代码: 
+
+- 以 750px 设计稿作为基准，根节点设置 `font-size` 为 20px ,只考虑 DPR 为 2 的情况，只考虑最简单的情况, 这个 20px 是自己定义的, 使用 rem 的 mixin 可以自动计算出多少 rem, 看下面代码: 
 
 ```scss
 @mixin rem($property, $values, $support-ie: false, $base: 40px) {
@@ -31,7 +32,7 @@ html {
 }
 ```
 
-`$base` 是我们的基准字体大小, 可以看到, 之前在自己定义 html 的 `font-size` 的时候, 计算的结果是 `20px` 这是设置的以 iPhone6 作为尺寸参照, 那么这里为什么是 `40px` 呢? 没错 Retina 屏幕的原因. 实际尺寸是2倍.所以这个自动计算 `rem` 的 mixin 就帮我们完成了像素自动转成 rem 的工作, 直接按照设计稿上的写就行了, 经过编译后会转成对应的 rem.
+`$base` 是我们的基准字体大小, 可以看到, 之前在自己定义 html 的 `font-size` 的时候, 计算的结果是 `20px` 这是设置的以 iPhone6 且设计稿宽度 750px 作为尺寸参照, 那么这里为什么是 `40px` 呢? 没错 Retina 屏幕的原因. 实际尺寸是2倍大小. 所以这个自动计算 `rem` 的 mixin 就帮我们完成了像素自动转成 rem 的工作, 直接按照设计稿上的写就行了, 经过编译后会转成对应的 rem.
 
 像这样用:
 
